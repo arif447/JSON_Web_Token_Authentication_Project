@@ -1,0 +1,25 @@
+pip install djangorestframework-simplejwt
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenVerifyView, TokenRefreshView
+
+urlpatterns = [
+    path('gettoken/', TokenObtainPairView.as_view(), name='gettoken'),
+    path('refreshtoken/', TokenRefreshView.as_view(), name='refreshtoken'),
+    path('verifytoken/', TokenVerifyView.as_view(), name='verifytoken'),
+    ]
+
+ Token Generate:  http POST http://127.0.0.1:8000/gettoken/ username="arif" password="123"
+ Verifytoken:  http POST http://127.0.0.1:8000/verifytoken/token="token"
+
+After token:
+  http -f  POST http://127.0.0.1:8000/gettoken/appname/ fieldname 'token'
+  http PUT http://127.0.0.1:8000/gettoken/appname/1/ fieldname 'token'
+  http DELETE http://127.0.0.1:8000/gettoken/appname/1/ 'token'
+
+----
+In setting files
+from datetime import timedelta
+
+STATIC_URL = 'static/'
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME':timedelta(minutes=10)
+}
